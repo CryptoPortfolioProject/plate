@@ -22,8 +22,6 @@ func Run(ctx context.Context) error {
 	l := logger.New(defaultLevel, os.Stdout)
 	ctx = logger.WithLogger(ctx, l)
 
-	<-ctx.Done()
-
 	cfg, err := config.LoadConfig()
 	if err != nil {
 		l.Errorw("failed to load config", "error", err)
@@ -31,6 +29,8 @@ func Run(ctx context.Context) error {
 	}
 	fmt.Println(cfg)
 	l.Info("App starting")
+
+	<-ctx.Done()
 
 	return nil
 }
